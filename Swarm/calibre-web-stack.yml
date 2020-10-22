@@ -1,0 +1,30 @@
+version: '3.2'
+
+services:
+  calibre-web:
+    image: linuxserver/calibre-web
+    environment:
+      - PUID=1000
+      - PGID=100
+      - TZ=America/Los_Angeles
+      - DOCKER_MODS=linuxserver/calibre-web:calibre
+    volumes:
+      - calibre-web_cfg:/config
+      - calibre_data:/books
+    ports:
+      - 8083:8083
+    deploy:
+      mode: replicated
+      replicas: 1
+
+volumes:
+  calibre-web_cfg:
+      driver_opts:
+        type: "nfs"
+        o: "addr=192.168.23.90,nolock,soft,rw"
+        device: ":/data/DockerData/Cfg/calibre-web"
+  calibre_data:
+      driver_opts:
+        type: "nfs"
+        o: "addr=192.168.23.90,nolock,soft,ro"
+        device: ":/data/DockerData/Calibre-Library"

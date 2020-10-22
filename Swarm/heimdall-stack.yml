@@ -1,0 +1,30 @@
+version: '3.2'
+
+services:
+
+  heimdall:
+    image: linuxserver/heimdall
+    environment:
+      - PUID=1000
+      - PGID=100
+      - TZ=America/Los_Angeles
+    volumes:
+      - type: volume
+        source: heimdall_data
+        target: /config
+        volume:
+          nocopy: true
+
+    ports:
+      - 8080:80
+      - 8443:443
+    deploy:
+      mode: replicated
+      replicas: 1
+
+volumes:
+  heimdall_data:
+      driver_opts:
+        type: "nfs"
+        o: "addr=192.168.23.90,nolock,soft,rw"
+        device: ":/data/DockerData/heimdall"
