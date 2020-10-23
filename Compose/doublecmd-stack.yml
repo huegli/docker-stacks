@@ -1,0 +1,15 @@
+version: "2.1"
+services:
+  doublecommander:
+    image: linuxserver/doublecommander
+    container_name: doublecommander
+    environment:
+      - PUID=1000
+      - PGID=100
+      - TZ=Americas/Los_Angeles
+    volumes:
+      - dcmder-cfg:/config
+      - Home:/data
+    ports:
+      - 3000:3000
+      restart: unless-stopped

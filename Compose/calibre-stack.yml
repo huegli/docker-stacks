@@ -1,0 +1,22 @@
+---
+version: "2.1"
+services:
+  calibre2:
+    image: linuxserver/calibre
+    container_name: calibre2
+    environment:
+      - PUID=1000
+      - PGID=100
+      - TZ=Americas/Los_Angeles
+      - GUAC_USER=abc 
+      - GUAC_PASS=900150983cd24fb0d6963f7d28e17f72
+      - UMASK_SET=022 
+      - CLI_ARGS= 
+    volumes:
+      - calibre-cfg:/config
+      - Home:/home/abc
+      - CalibreLib:/data     
+    ports:
+      - 8088:8080
+      - 8089:8081
+      restart: unless-stopped
