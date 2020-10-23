@@ -1,0 +1,18 @@
+version: "2.1"
+services:
+  calibre-rdp:
+    image: linuxserver/rdesktop:openbox-focal
+    environment:
+      - PUID=1000
+      - PGID=100
+      - TZ=Americas/Los_Angeles
+    volumes:
+      - cfg_calibre-rdp:/config
+      - /home/nikolai-local/Init_Docker/calibre/custom-cont-init.d:/config/custom-cont-init.d
+      - Home:/home/abc
+      - CalibreLib:/data
+    ports:
+      - 3391:3389
+      - 8080:8080
+    shm_size: "1gb" #optional
+    restart: unless-stopped
